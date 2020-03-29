@@ -1,1 +1,2 @@
-alert("The JS is working");
+d3.select('h1').style('color', 'black');
+  
