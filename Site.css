@@ -1,3 +1,65 @@
+body{
+    margin: 15px;
+    font-family: monospace;
+}
+
+.PageTitle{
+    text-align: center;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;  
+}
+
+#realChart-area{
+    
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+
 .color{
     color: red;
 }
+
+.highlighted{
+   color: red;
+}
+
+.lines{
+    stroke: black;
+    stroke-width: 10;
+}
+
+.lines path{
+    stroke: blue;
+    stroke-linejoin: round;
+}
+
+#blogDiv{
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+
+.pNumbers{   
+    font-weight: bold;
+}
+
+
+/*   
+  .yaxis .tick text{
+    fill: gray;
+  }
+  
+  .yaxis .tick line{
+    
+    opacity: .5;
+  } */
+
+  .yaxis .tick line{
+      stroke: black;
+      opacity: .5;
+      stroke-width: .5px;
+  }

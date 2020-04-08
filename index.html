@@ -1,21 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="Site.css">
-   
+    <title>COVID-19 Data</title>
+    <link rel="stylesheet" href="Site.css">     
     
 </head>    
     <body>
-        <h1>COVID-19 Data</h1>
 
-        <svg width="800" height="500">
-            <rect width="750" height="450" style="fill:blanchedalmond; stroke-width: 3; stroke: black;"  ></rect>
-            <text x="5" y="15" style="fill:black;" style="font-size: 2em;">This is where the COVID-19 data will go</text>
-        </svg>
-       
+        <h1 class="PageTitle">COVID-19 Daily Blog</h1>  
+           
+        <div id="Charts">
+            
+            <div id="realChart-area"></div>
+            <!-- <div id="practiceChart-area"></div> -->
+
+        </div>
+
+
+        <div id='blogDiv'>  
+            
+            <div>
+                <h3>04 08 2020</h3>
+                <p class="pNumbers">
+                    U.S reported cases: 396,223 +8%<br />
+                    U.S reported deaths: 12,722 +18%<br />        
+                    Virginia reported cases: 3335 +16%<br />
+                </p>
+                <p>The U.S overall daily growth rate continues to drop slowly. We only saw 8% new cases yesterday. This trend continues to follow the prediction that the U.S will hit peek mid to end of April.&nbsp; &nbsp;<br /> <br /> The U.S did see a large spike in the daily death growth rate. From 12% to 18%. Unfortunately, this jump brings the case fatality rate up to 3.2%</p>
+                <p>Virginia also saw a large jump in the daily growth rate 9% to 16% with 457 new case.&nbsp; This could be due to delayer reporting.&nbsp; Virginia has had reported errors before. Hopefully we will see a big drop tomorrow.&nbsp;</p>
+                    
+                               
+            </div>        
+
+
+
+
+
+
+        <div>
+            <h3>04 07 2020</h3>
+            <p class="pNumbers">
+               U.S reported cases: 366,614 +9%<br />
+               U.S reported deaths: 10,783 +12%<br />        
+               Virginia reported cases: 2,878 +9%<br />
+            </p>
+              
+                <p>Today the downward daily growth trend continues in all the areas. </p>
+                
+                <p>For reported cases the rate we see now is the lowest it has ever been at 9%.</p>
+                
+                <p> The daily growth rate for deaths has also turned downward steeply from last week. Today we only saw 12% compared to last week when the percentage was in the mid 20s. however the case fatality rate to continues to tick slightly upward(2.9%) due to the higher death daily growth rate. Still much lower than most of Europe.</p>
+               
+                <p>    Virginia is continuing to follow the same downward daily growth trend with only 9%. </p>
+               
+                <p>  There could be various factors driving this downward trend. Including more stay at home orders / stricter social distancing rules. The U.S could be completing less testing, driving the numbers down. The population could be developing herd immunity. Or the virus is starting to reach its maximum carrying capacity. Either way. Let’s hope the daily growth rate continues to fall.</p>
+                           
+        </div>        
+        
+
+    </div>
+   
     </body>
-
-    <script src="https://d3js.org/d3.v5.js"></script>
-    <script src="Site.js"></script> 
-
+    <script  src="d3.js"></script>
+    <script  src="practice.js"></script> 
+    <script  src="Site.js"></script> 
+   
 </html>
