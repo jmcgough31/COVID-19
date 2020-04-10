@@ -29,6 +29,8 @@ $( document ).ready(function() {
 });
 var formatC = d3.format(",");
 var formatP = d3.format(".0%");
+
+
 function totalVACases(){
    
     d3.csv("testCOVID-DataV2.csv").then(function(data){
@@ -77,7 +79,7 @@ function totalVACases(){
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text("Total Reported Cases");
+            .text("Virginia Reported Cases");
     
     var x = d3.scaleBand()
         .domain(data.map(function(d){
@@ -144,7 +146,7 @@ function totalVACases(){
             var d = d3.select(this).data()[0]
             div
                 // .html(d.Date + '<hr/>' + d.CasesUS)
-                .html( formatC(d.CasesVA))
+                .html("Total Cases: " + formatC(d.CasesVA) + "<hr>" + "Daily Growth: " + formatP(d.GrowthVA))
                 .style('left', (d3.event.pageX - 34) + 'px')
                 .style('top', (d3.event.pageY - 12) + 'px');
         }
@@ -271,7 +273,7 @@ function totalUSCases(){
             var d = d3.select(this).data()[0]
             div
                 // .html(d.Date + '<hr/>' + d.CasesUS)
-                .html(formatC(d.CasesUS)+ '<hr>' +formatP(d.GrowthUS))
+                .html("Total Cases: "+ formatC(d.CasesUS)+ '<hr>' + "Daily Growth: " +formatP(d.GrowthUS))
                 .style('left', (d3.event.pageX - 34) + 'px')
                 .style('top', (d3.event.pageY - 12) + 'px');
         }
