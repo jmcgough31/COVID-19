@@ -3,12 +3,27 @@
 <head>
     <title>COVID-19 Data</title>
     <link rel="stylesheet" href="Site.css">     
+    <link rel="stylesheet" href="jquery-ui.css">   
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
     
 </head>    
     <body>
 
         <h1 class="PageTitle">COVID-19 Daily Blog</h1>  
-           
+        <!-- <div id="test">
+            <p id="testClick">Hello</p>
+        </div> -->
+        <div id='container'></div>
+        <div class="selectMenue">
+            <label for="dataSetMenu">Select a Data Set:</label>
+            <select  name="dataSetMenu" id="dataSet">
+              <option value="U.S">U.S. Total Reported Cases</option>
+              <option value="VA">Virginia Total Reported Cases</option>    
+              <option value="dailygrowth">U.S. Daily Growth Rate</option>  
+              <option value="DeathGrowth">U.S. Death Growth Rate</option>         
+            </select>
+        </div>
         <div id="Charts">
             
             <div id="realChart-area"></div>
@@ -19,7 +34,26 @@
 
         <div id='blogDiv'>  
             
-            <div>
+            <div class="DailyPost">
+                <h3>04 09 2020</h3>
+                <p class="pNumbers">
+                    U.S reported cases: 429,052 +8%<br />
+                    U.S reported deaths: 14,695 +16%<br />        
+                    Virginia reported cases: 3,645 +9%<br />
+                </p>               
+                <p>U.S. daily growth remains at 8%. The U.S. daily death growth rate saw a slight decrease from 18% to 16%. Unfortunately, this number still remains significantly higher than the growth rate of new cases. Leading to another increase in the U.S. case fatally rate. Now at 3.4%.&nbsp;&nbsp; the lower growth of new cases and the larger death growth rate could be due to poor testing or sampling bias. The U.S could be reducing testing on individuals with mild or no symptoms while only testing those that come to the hospital with more severe symptoms. We could also be seeing a sudden jump in severe cases leading more strain on the healthcare system in certain hotspots.</p>
+                <p>The Virginia daily growth rate is down again to 9% more in line with the national average the jump we saw yesterday could have been from delayed reporting from the weekend.</p>
+                <p>Stay home and stay safe!!</p>                    
+                <hr>
+                               
+            </div>        
+
+
+
+
+        <div id='blogDiv'>  
+            
+            <div class="DailyPost">
                 <h3>04 08 2020</h3>
                 <p class="pNumbers">
                     U.S reported cases: 396,223 +8%<br />
@@ -29,15 +63,12 @@
                 <p>The U.S overall daily growth rate continues to drop slowly. We only saw 8% new cases yesterday. This trend continues to follow the prediction that the U.S will hit peek mid to end of April.&nbsp; &nbsp;<br /> <br /> The U.S did see a large spike in the daily death growth rate. From 12% to 18%. Unfortunately, this jump brings the case fatality rate up to 3.2%</p>
                 <p>Virginia also saw a large jump in the daily growth rate 9% to 16% with 457 new case.&nbsp; This could be due to delayer reporting.&nbsp; Virginia has had reported errors before. Hopefully we will see a big drop tomorrow.&nbsp;</p>
                     
+                <hr>
                                
             </div>        
 
 
-
-
-
-
-        <div>
+        <div class="DailyPost">
             <h3>04 07 2020</h3>
             <p class="pNumbers">
                U.S reported cases: 366,614 +9%<br />
@@ -54,14 +85,20 @@
                 <p>    Virginia is continuing to follow the same downward daily growth trend with only 9%. </p>
                
                 <p>  There could be various factors driving this downward trend. Including more stay at home orders / stricter social distancing rules. The U.S could be completing less testing, driving the numbers down. The population could be developing herd immunity. Or the virus is starting to reach its maximum carrying capacity. Either way. Let’s hope the daily growth rate continues to fall.</p>
-                           
+                <hr>        
         </div>        
         
 
     </div>
    
+<footer>
+
+</footer>
+
     </body>
-    <script  src="d3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
+<   <script src="jquery-ui.js"></script>
+    <script  src="d3.js"></script>    
     <script  src="practice.js"></script> 
     <script  src="Site.js"></script> 
    

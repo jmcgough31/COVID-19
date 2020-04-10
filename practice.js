@@ -1,145 +1,151 @@
+/*
+*    main.js
+*    Mastering Data Visualization with D3.js
+*    Project 2 - Gapminder Clone
+*/
 
+var margin = { left:80, right:20, top:50, bottom:100 };
+var height = 500 - margin.top - margin.bottom, 
+    width = 800 - margin.left - margin.right;
 
-
-d3.json("https://raw.githubusercontent.com/adamjanes/udemy-d3/master/03/3.07/data/buildings.json").then(function(data){
-    data.forEach(function(d){
-        d.height = +d.height;
-    });
-    console.log(data);
-
-    var margin = {left:100, right:10, top:10, bottom:150};
-
-    var width = 600 - margin.left - margin.right;
-    var height = 400 - margin.top - margin.bottom;
-
-    var svg = d3.select("#practiceChart-area")
+var g = d3.select("#practiceChart-area")
     .append("svg")
-   .attr("width", width + margin.left + margin.right)
-   .attr("height", height + margin.top + margin.bottom);
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", "translate(" + margin.left + 
+            ", " + margin.top + ")");
 
-   var g = svg.append("g")
-        .attr("transform", "translate("+ margin.left +"," + margin.top +")" );
+var time = 0;
 
-    g.append("text")
-        .attr("class","x axis-label")
-        .attr("x", width  /2)
-        .attr("y", height + 140)
-        .attr("font-size", "20px")
-        .attr("text-anchor", "middle")
-        .text("The World's Tallest Buildings");
 
-        g.append("text")
-        .attr("class","y axis-label")
-        .attr("x", -(height  /2))
-        .attr("y", -60)
-        .attr("font-size", "20px")
-        .attr("text-anchor", "middle")
-        .attr("transform", "rotate(-90)")
-        .text("Height (m)");
-    
 
-   var x = d3.scaleBand()
-   .domain(data.map(function(d){
-       return d.name;
-   }))
-   .range([0, width])
-   .paddingInner(0.3)
-   .paddingOuter(0.3);
+// Scales
+var x = d3.scaleLog()
+    .base(10)
+    .range([0, width])
+    .domain([142, 150000]);
+var y = d3.scaleLinear()
+    .range([height, 0])
+    .domain([0, 90]);
+var area = d3.scaleLinear()
+    .range([25*Math.PI, 1500*Math.PI])
+    .domain([2000, 1400000000]);
+var continentColor = d3.scaleOrdinal(d3.schemePastel1);
 
-   var y = d3.scaleLinear()
-   .domain([0, d3.max(data, function(d){
-       return d.height;
-   })])
-   .range([height, 0]);
+// Labels
+var xLabel = g.append("text")
+    .attr("y", height + 50)
+    .attr("x", width / 2)
+    .attr("font-size", "20px")
+    .attr("text-anchor", "middle")
+    .text("GDP Per Capita ($)");
+var yLabel = g.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -40)
+    .attr("x", -170)
+    .attr("font-size", "20px")
+    .attr("text-anchor", "middle")
+    .text("Life Expectancy (Years)")
+var timeLabel = g.append("text")
+    .attr("y", height -10)
+    .attr("x", width - 40)
+    .attr("font-size", "40px")
+    .attr("opacity", "0.4")
+    .attr("text-anchor", "middle")
+    .text("1800");
 
-   var xAxisCall = d3.axisBottom(x);
-   g.append("g")
+// X Axis
+var xAxisCall = d3.axisBottom(x)
+    .tickValues([400, 4000, 40000])
+    .tickFormat(d3.format("$"));
+g.append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(0,"+height+")")
-    .call(xAxisCall)
-    .selectAll("text")
-        .attr("y", "10")
-        .attr("x", "-5")
+    .attr("transform", "translate(0," + height +")")
+    .call(xAxisCall);
+
+// Y Axis
+var yAxisCall = d3.axisLeft(y)
+    .tickFormat(function(d){ return +d; });
+g.append("g")
+    .attr("class", "y axis")
+    .call(yAxisCall);
+
+
+var continents = ["europe", "asia", "americas", "africa"];
+var legend = g.append("g")
+    .attr("transform", "translate("+ (width - 10) + "," + (height - 125) +")" );
+
+    continents.forEach(function(continent, i){
+    var legendRow = legend.append("g")
+    .attr("transform", "translate(0, "+(i *20) +")" );
+
+    legendRow.append("rect")
+        .attr("width", 10)
+        .attr("height", 10)
+        .attr("fill", continentColor(continent));
+    legendRow.append("text")
+        .attr("x", -10)
+        .attr("y", 10)
         .attr("text-anchor", "end")
-        .attr("transform", "rotate(-40)");
+        .style("text-transform", "capotalize")
+        .text(continent);
 
-   var yAxisCall = d3.axisLeft(y)
-    .ticks(3)
-    .tickFormat(function(d){
-        return d + "m"
-    });
-   g.append("g")
-   .attr("class", "y axis")   
-   .call(yAxisCall);
-
-    var rects = g.selectAll("rect")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("y", function(d){
-            return y(d.height);
-        })
-        .attr("x", function(d,i){
-            return x(d.name);
-        })        
-        .attr("height", function(d){
-            return height - y(d.height)
-        })
-        .attr("width", x.bandwidth)
-        .attr("fill","gray")
-
-
-}).catch(function(error){
-    console.log(error);
 });
 
-// d3.csv("https://raw.githubusercontent.com/adamjanes/udemy-d3/master/02/2.07/data/ages.csv").then(function(data){
-//     data.forEach(function(d){
-//         d.age = +d.age
-//     });
-    
+d3.json("https://raw.githubusercontent.com/adamjanes/udemy-d3/master/05/5.10.1/data/data.json").then(function(data){
+    console.log(data);
 
-//     var svg = d3.select("#practiceChart-area").append("svg")
-//     .attr("width", 400)
-//     .attr("height", 400);
+    // Clean data
+    const formattedData = data.map(function(year){
+        return year["countries"].filter(function(country){
+            var dataExists = (country.income && country.life_exp);
+            return dataExists
+        }).map(function(country){
+            country.income = +country.income;
+            country.life_exp = +country.life_exp;
+            return country;            
+        })
+    });
 
+    // Run the code every 0.1 second
+    d3.interval(function(){
+        // At the end of our data, loop back
+        time = (time < 214) ? time+1 : 0
+        update(formattedData[time]);            
+    }, 100);
 
-// var circles = svg.selectAll("circle")
-//     .data(data)
-//     .enter()
-//     .append("circle")
-//     .attr("cx", function(d, i){
-//         console.log(d)
-//         return (i*50)+25;
-//     })
-//     .attr("cy", 100)
-//     .attr("r", function (d){
-//         return d.age *2;
-//     })
-//     .attr("fill", function(d){
-//         if(d.name =="Tony"){
-//             return "blue";
-//         }
-//         else{
-//             return "red"
-//         }
-//     });
+    // First run of the visualization
+    update(formattedData[0]);
 
-// }).catch(function(error){
-//     console.log(erro);
-// })
+})
 
+function update(data) {
+    // Standard transition time for the visualization
+    var t = d3.transition()
+        .duration(100);
 
+    // JOIN new data with old elements.
+    var circles = g.selectAll("circle").data(data, function(d){
+        return d.country;
+    });
 
-// var circle =svg.append("circle")
-//     .attr("cx" ,100)
-//     .attr("cy", 250)
-//     .attr("r", 70)
-//     .attr("fill", "gray");
+    // EXIT old elements not present in new data.
+    circles.exit()
+        .attr("class", "exit")
+        .remove();
 
-// var rect = svg.append("rect")
-//     .attr("width", 130)
-//     .attr("height", 40)
-//     .attr("x", 10)
-//     .attr("y", 20)
-//     .attr("fill", "gray");
+    // ENTER new elements present in new data.
+    circles.enter()
+        .append("circle")
+        .attr("class", "enter")
+        .attr("fill", function(d) { return continentColor(d.continent); })   
+        .merge(circles)
+        .transition(t)
+            .attr("cy", function(d){ return y(d.life_exp); })
+            .attr("cx", function(d){ return x(d.income) })
+            .attr("r", function(d){ return Math.sqrt(area(d.population) / Math.PI) });
+
+    // Update the time label
+    timeLabel.text(+(time + 1800))
+}

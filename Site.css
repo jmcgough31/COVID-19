@@ -18,6 +18,20 @@ body{
     
 }
 
+.tooltip{
+    position      : absolute;
+    text-align    : center;
+    max-width     : 70px;
+    max-height    : 40px;
+    padding       : 8px;
+    border        : none;
+    border-radius : 8px;
+    margin-top    : -50px;
+    font          : 12px sans-serif;
+    background    : black;
+    color         : white;
+    pointer-events: none;
+}
 
 .color{
     color: red;
@@ -47,19 +61,22 @@ body{
     font-weight: bold;
 }
 
-
-/*   
-  .yaxis .tick text{
-    fill: gray;
-  }
-  
-  .yaxis .tick line{
-    
-    opacity: .5;
-  } */
+footer{
+    height: 50px;
+}
 
   .yaxis .tick line{
       stroke: black;
       opacity: .5;
       stroke-width: .5px;
+  }
+
+
+  .selectMenue{
+    font-size: 12px;
+    width: 120px;
+  }
+
+  label{
+      float: left;
   }
