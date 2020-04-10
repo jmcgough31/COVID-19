@@ -144,7 +144,7 @@ function totalVACases(){
             var d = d3.select(this).data()[0]
             div
                 // .html(d.Date + '<hr/>' + d.CasesUS)
-                .html( format(d.CasesVA))
+                .html( formatC(d.CasesVA))
                 .style('left', (d3.event.pageX - 34) + 'px')
                 .style('top', (d3.event.pageY - 12) + 'px');
         }
