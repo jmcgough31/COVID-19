@@ -36,6 +36,9 @@ var parseTime = d3.timeParse("%m/%d/%Y");
 var toreadDate = d3.timeFormat("%m/%d/%Y");
 
 function totalVACases(){
+
+ 
+ 
    
     d3.csv("testCOVID-DataV2.csv").then(function(data){
         data.forEach(function(d){
@@ -49,20 +52,41 @@ function totalVACases(){
 
            maxDate = d3.max(data, function(d){
             return d.Date;
-             })          
-         
+             })  
+
+          
+             $("#test2").text(toreadDate(minDate) + ", "+toreadDate(maxDate) );
+
             $( "#dateRangeSlider").slider({
                 range: true,
                 min: minDate.getTime(),
                 max: maxDate.getTime(),
                 step: 86400000, // One day
                 values: [minDate.getTime(),maxDate.getTime()],
-                slide: function(event, ui){                                
-                    $("#rangeValue1").text(toreadDate(new Date(ui.values[0])));
-                    $("#rangeValue2").text(toreadDate(new Date(ui.values[1])));                           
+                slide: function(event, ui){    
+                    $("#test2").text(toreadDate(new Date(ui.values[0]))+", "+toreadDate(new Date(ui.values[1])))  ; 
                 }           
-        })
-       
+        })    
+
+        function updateVACases(){
+            var sliderValues = ("#dateRangeSlider").slider("values");
+            
+
+        }
+
+        var datevalues = $( "#dateRangeSlider" ).slider( "values" );    
+        var date1 = datevalues[0];
+        var date2 = datevalues[1];
+        console.log(toreadDate(date1) + " , " + toreadDate(date2));
+    
+
+     //   var datevalues = $("#dateRangeSlider" ).slider( "values");
+    //    console.log(datevalues);
+    //    var dateRangeValues = $('#dateRangeSlider').slider("values");
+    //    console.log(dateRangeValues);
+        
+
+    
      
     
     var margin = {left:100, right:10, top:10, bottom:100};
