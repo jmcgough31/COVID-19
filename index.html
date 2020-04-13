@@ -11,25 +11,92 @@
     <body>
 
         <h1 class="PageTitle">COVID-19 Daily Blog</h1>  
-        <!-- <div id="test">
-            <p id="testClick">Hello</p>
-        </div> -->
-        <div id='container'></div>
-        <div class="selectMenue">
-            <label for="dataSetMenu">Select a Data Set:</label>
-            <select  name="dataSetMenu" id="dataSet">
-              <option value="U.S">U.S. Total Reported Cases</option>
-              <option value="VA">Virginia Total Reported Cases</option>    
-              <option value="dailygrowth">U.S. Daily Growth Rate</option>  
-              <option value="DeathGrowth">U.S. Death Growth Rate</option>         
-            </select>
-        </div>
+ 
+       
         <div id="Charts">
-            
+
+            <div class="selectMenue">
+                <label for="dataSetMenu">Select a Data Set:</label>
+                <select  name="dataSetMenu" id="dataSet">
+                  <option value="U.S">U.S. Total Reported Cases</option>
+                  <option value="VA">Virginia Total Reported Cases</option>    
+                  <option value="dailygrowth">U.S. Daily Growth Rate</option>  
+                  <option value="DeathGrowth">U.S. Death Growth Rate</option>         
+                </select>
+
+                <!-- <div id="dateRangeSlider">
+                    <p id="rangeValue1"></p>
+                    <p id="rangeValue2"></p>
+                </div> -->
+
             <div id="realChart-area"></div>
-            <!-- <div id="practiceChart-area"></div> -->
+            <div id="container" ></div>
+         </div>
+
+
+
+            <!-- <div id="practiceChart-area">
+                <div class="container">
+                    <div id="selections" class="row">
+                        <div class="col-md-4">
+                            <div id="slider-div">
+                                <label>Date: <span id="dateLabel1">12/05/2013</span> - <span id="dateLabel2">31/10/2017</span></label>
+                                <div id="date-slider"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="coin-select" class="form-control">
+                                <option selected value="bitcoin">Bitcoin</option>
+                                <option value="ethereum">Ethereum</option>
+                                <option value="bitcoin_cash">Bitcoin Cash</option>
+                                <option value="litecoin">Litecoin</option>
+                                <option value="ripple">Ripple</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="var-select" class="form-control">
+                                <option selected value="price_usd">Price in dollars</option>
+                                <option value="market_cap">Market capitalization</option>
+                                <option value="24h_vol">24 hour trading volume</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="chart-area"></div>  
+                    </div>
+
+
+
+            </div> -->
 
         </div>
+
+        <div id='blogDiv'>  
+            
+            <div class="DailyPost">
+                <h3>04 13 2020</h3>
+                <p class="pNumbers">
+                    U.S reported cases: <br />
+                    04/10/20 496,530 +8%<br />        
+                    04/11/20 526,391 +6%<br />
+                    04/12/20 555,304 +5% <br />
+                    <br />
+                    U.S reported deaths:  <br />
+                    04/10/20 18,581 +13%<br />        
+                    04/11/20 20,457 +10%<br />
+                    04/12/20 22,014 +8% <br />
+                    <br />
+                    04/10/20 4,509 +12%<br />
+                    04/11/20 5,077 +13%<br />
+                    04/12/20 5,274 +4%  <br />           
+                </p>               
+                <p>Weekend predictions were pretty close.&nbsp; <br /> With just over 550,000 total cases. The U.S only saw a 5% growth yesterday. Leading to 6,000 fewer reported cases compered to Friday. I estimate we are very close to peek. We could be seeing the start of the peak for the U.S. now.&nbsp; If this downward trend continues by the end of the week could start to show consistent lower new case count indicating the peak.&nbsp; &nbsp;&nbsp;</p>
+                <p>I was a little short on the number of deaths. I predicted 23,000 the U.S saw 22,000.&nbsp; which is a good thing. The growth rate for deaths dropped a little steeper than I had estimated, only showing 8% by the end of the weekend. unfortunately, the U.S. case fatality rate jumped slightly higher to 3.9%. I do estimate that the death growth rate will be 1-2 weeks behind new cases. Due to the average length of infection.</p>
+                <p>Virginia Saw only 274 cases over my estimate of 5,000. VA only had 4% growth yesterday. However, like we have seen before, V.A.s numbers have been low after the weekend. Indicating delayed weekend reporting.&nbsp; I expect a slight jump tomorrow possibly into Wednesday.</p>
+                <p>After a few weeks and establishing a trend it appears the 4-day prediction model I have created is somewhat accurate.</p>
+                <hr>
+                               
+            </div>  
 
         <div id='blogDiv'>  
             
@@ -116,7 +183,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
 <   <script src="jquery-ui.js"></script>
     <script  src="d3.js"></script>    
-    <script  src="practice.js"></script> 
+    <!-- <script  src="practice.js"></script>  -->
     <script  src="Site.js"></script> 
    
 </html>
