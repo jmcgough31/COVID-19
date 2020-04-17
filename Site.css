@@ -16,11 +16,19 @@ body{
   margin-right: auto;
 }
 
-#realChart-area{    
-    
-    /* margin-left: auto;
-    margin-right: auto; */
-    
+
+
+#dateRangeSlider{
+  float: left;
+}
+#SliderLable{
+  float: left;
+}
+
+.selectMenue{
+  padding-top: 10px;
+  padding-left: 100px;
+ float: left;
 }
 
 .tooltip{
