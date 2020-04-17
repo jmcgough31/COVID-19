@@ -279,7 +279,7 @@ function USCases() {
         .attr("font-size", "20px")
         .attr("text-anchor", "middle")
         .attr("transform", "rotate(-90)")
-        .text("Total Reported Cases Virginia");
+        .text("Total Reported Cases U.S.");
 
     var xAsisGroup = g.append("g")
         .attr("class", "xaxis")
