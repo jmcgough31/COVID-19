@@ -11,29 +11,38 @@
 </head>
 
 <body>
-
-    <h1 class="PageTitle">COVID-19 Daily Blog</h1>
+    <div class="PageTitle">
+        <!-- <img class="covid-19IMG" src="Proof Virus Red V01.png" alt="COVID-19"> -->
+        <h1 class="title">COVID-19 Daily Blog</h1>
+    </div>
+   
 
 
     <div id="Charts">
 
         <div id="dataFilterDiv">
-            <div id="dateRangeSlider"> </div>
-            <p id=SliderLable></p>
+          
+           <span id=selectMenueTitle>Select a data set</span>
             <div class="selectMenue">
                 <!-- <label for="dataSetMenu">Select a Data Set:</label> -->
-                <select name="dataSetMenu" id="dataSet">
-                    <option value="VA">Virginia Total Reported Cases</option>
+                <select name="dataSetMenu" id="dataSet">                   
                     <option value="U.S">U.S. Total Reported Cases</option>
-                   
+                    <option value="USNew">U.S. New Daily Cases</option>
+                    <option value="USGrowth">Daily Growth U.S.</option>
+                    <option value="VA">Virginia Total Reported Cases</option>
+                    <option value="VANew">V.A. New Daily Cases</option>                    
                 </select>
+            </div>
+
+            
+            <span id="dateSliderTitle">Select A Date</span>
+            <div id="dateRangeSlider">
+                <p id=SliderLable></p>
             </div>
         </div>
 
-
-
-            <div id="realChart-area"></div>
-            <div id="container"></div>
+       <div id="realChart-area"></div>
+       <div id="container"></div>
         
 
     </div>
