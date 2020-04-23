@@ -1,5 +1,6 @@
 body{   
     font-family: monospace;
+    background-color: #d4d4d4;
 }
 
 .PageTitle{
@@ -11,6 +12,7 @@ body{
     height: 200px;
     margin-left: auto;
     margin-right: auto;  
+    
 }
 
 .title{
@@ -20,19 +22,44 @@ body{
   padding-right: 300px;
 }
 
-#dataFilterDiv{
-  width: 250px;
-  height: 400px; 
-  float: left;
+#dataFilterDiv{   
+  display: inline-block;   
 }
 
-#Charts{    
-  margin: auto;
-  display: inline-block;  
-
+td {
+  /* border: 1px solid #dddddd; */
+  text-align: left;  
+  width: 250px; 
 }
-#realChart-area{  
-  min-width: 1300px;
+
+.lableTitle{
+  font-size: 15px;
+}
+
+#Charts{     
+  padding: 15px;   
+   margin-top: 15px;
+   margin-left: auto;
+   margin-right: auto;
+  background-color: white;
+  border: solid black 3px;
+  box-shadow: 0px 0px 8px grey;
+  text-align: center;
+  min-width: 1000px;
+  width: 1200px;
+ 
+}
+.dataSelectors{
+  padding-left: 80px;
+  display: inline-block;
+}
+
+#blogDiv{
+  border: solid black 3px;
+  margin-top: 15px;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 0px 8px grey;
 }
 
 .covid-19IMG{  
@@ -46,19 +73,17 @@ body{
   font-size: 12px;
 }
 
-.selectMenue{  
-  padding-left: 15px;
-padding-bottom: 30px;
-}
-#selectMenueTitle{
-  font-size: 15px; 
-  padding-left: 45px;
+.label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
 }
 
-#dateSliderTitle{
-  font-size: 15px; 
-  padding-left: 60px;
+
+.selectMenue{  
+ 
 }
+
 
 .tooltip{
     position      : absolute;
@@ -125,8 +150,8 @@ footer{
   }
 
  #dateRangeSlider{
-     width: 200px;
-     margin: 15px;
+   
+     margin: 5px;
  }
 
   /* test CSS */

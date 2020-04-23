@@ -717,8 +717,6 @@ function VACasesNew() {
 
 ///------- line charts -------////
 
-//TO DO.  figure out dateYaxis ticks 
-// make data sortable with slider
 
 function dailyGrowthUS() {
 
