@@ -1,5 +1,8 @@
+// TODO find out why slider max date is one day off when slider is used.
+
+
 $(document).ready(function () {
-    VACases();
+    USCases();
     $("#dataSet").selectmenu();
 
     $('#dataSet').on('selectmenuchange', function () {
