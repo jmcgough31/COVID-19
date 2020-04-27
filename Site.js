@@ -38,7 +38,7 @@ $(document).ready(function () {
 
 
 var formatC = d3.format(",");
-var formatP = d3.format(".0%");
+var formatP = d3.format(".2%");
 var parseTime = d3.timeParse("%m/%d/%Y");
 var toreadDate = d3.timeFormat("%m/%d/%Y");
 var formatPercentage = d3.format(".0%");
@@ -432,7 +432,7 @@ function USCasesNew() {
         .attr("height", height + margin.top + margin.bottom);
 
     var x = d3.scaleBand()
-        .range([0, width])
+        .range([0, width])        
         .paddingInner(0.3)
         .paddingOuter(0.3);
 
@@ -481,7 +481,7 @@ function USCasesNew() {
         // x Axis
         var xAsisCall = d3.axisBottom(x);
         xAsisGroup.transition().call(xAsisCall)
-            .selectAll("text")
+            .selectAll("text")           
             .attr("y", "10")
             .attr("x", "-5")
             .attr("text-anchor", "end")
