@@ -71,7 +71,7 @@ function VACases() {
             min: minDate,
             max: maxDate,
             animate: "fast",
-            step: 86400000, // One day
+            //step: 86400000, // One day
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -231,6 +231,7 @@ function USCases() {
 
     function dataToSlider(data) {
         var minDate = d3.min(data, function (d) { return d.Date; }).getTime();
+        console.log(minDate)
         var maxDate = d3.max(data, function (d) { return d.Date; }).getTime();
         $("#SliderLable").text(toreadDate(minDate) + " - " + toreadDate(maxDate));
 
@@ -238,8 +239,7 @@ function USCases() {
             range: true,
             min: minDate,
             max: maxDate,
-            animate: "fast",
-            step: 86400000, // One day
+            animate: "fast",          
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -247,6 +247,7 @@ function USCases() {
                 dataFiltered = data.filter(function (d) {
                     return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
                 });
+                console.log(dataFiltered)
                 totalUSCases(dataFiltered)
 
             }
@@ -266,7 +267,7 @@ function USCases() {
     var x = d3.scaleBand()
         .range([0, width])
         .paddingInner(0.3)
-        .paddingOuter(0.3);
+        .paddingOuter(0.3);    
 
     var y = d3.scaleLinear()
         .range([height, 0]);
@@ -407,7 +408,7 @@ function USCasesNew() {
             min: minDate,
             max: maxDate,
             animate: "fast",
-            step: 86400000, // One day
+           // step: 86400000, // One day
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -481,7 +482,8 @@ function USCasesNew() {
         // x Axis
         var xAsisCall = d3.axisBottom(x);
         xAsisGroup.transition().call(xAsisCall)
-            .selectAll("text")           
+            .selectAll("text")
+           
             .attr("y", "10")
             .attr("x", "-5")
             .attr("text-anchor", "end")
@@ -576,7 +578,7 @@ function VACasesNew() {
             min: minDate,
             max: maxDate,
             animate: "fast",
-            step: 86400000, // One day
+          //  step: 86400000, // One day
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -747,7 +749,7 @@ function dailyGrowthUS() {
             min: minDate,
             max: maxDate,
             animate: "fast",
-            step: 86400000, // One day
+          //  step: 86400000, // One day
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
