@@ -247,8 +247,9 @@ function USCases() {
                 dataFiltered = data.filter(function (d) {
                     return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
                 });
-                console.log(dataFiltered)
-                totalUSCases(dataFiltered)
+                count = dataFiltered.length;
+                
+                totalUSCases(dataFiltered, count);
 
             }
         })
@@ -297,15 +298,15 @@ function USCases() {
 
     var xAsisGroup = g.append("g")
         .attr("class", "xaxis")
-        .attr("transform", "translate(0, " + height + ")");
+        .attr("transform", "translate(0, " + height + ")")    
 
 
     var yAxisGroup = g.append("g")
         .attr("class", "yaxis");
 
 
-    function totalUSCases(data) {
-
+    function totalUSCases(data, count) {
+        console.log(count);
         x.domain(data.map(function (d) { return toreadDate(d.Date); }));
         y.domain([0, d3.max(data, function (d) { return d.CasesUS; }) + (d3.max(data, function (d) { return d.CasesUS; })/50) ]);
 
@@ -316,9 +317,18 @@ function USCases() {
         xAsisGroup.transition().call(xAsisCall)
             .selectAll("text")
             .attr("y", "10")
-            .attr("x", "-5")
+            .attr("x", "-5")           
             .attr("text-anchor", "end")
-            .attr("transform", "rotate(-40)");
+            .attr("transform", "rotate(-40)") 
+            // .style("fill", function(){
+            //     if(count > 40){
+            //         return "none"
+            //     }
+            //     else{
+            //         return "black"
+            //     }
+            // } );
+          
 
         //y Axis
         var yAxisCall = d3.axisLeft(y)

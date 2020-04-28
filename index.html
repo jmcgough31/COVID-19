@@ -41,36 +41,59 @@
             <table class="tableData">
                 <tr>
                     <td class="lableTitle">Select a Data Set</td>
-                    <td class="lableTitle">Select A Date  </td>
+                    <td class="lableTitle">Select A Date </td>
                 </tr>
                 <tr>
-                    <td> <div class="selectMenue">                       
-                        <select name="dataSetMenu" id="dataSet">
-                            <option value="U.S">U.S. Total Reported Cases</option>
-                            <option value="USNew">U.S. New Daily Cases</option>
-                            <option value="USGrowth">Daily Growth U.S.</option>
-                            <option value="VA">Virginia Total Reported Cases</option>
-                            <option value="VANew">V.A. New Daily Cases</option>
-                        </select>
-                    </div></td>
-                    <td> <div id="dateRangeSlider">
-                        <p id=SliderLable></p>
-                    </div></td>
+                    <td>
+                        <div class="selectMenue">
+                            <select name="dataSetMenu" id="dataSet">
+                                <option value="U.S">U.S. Total Reported Cases</option>
+                                <option value="USNew">U.S. New Daily Cases</option>
+                                <option value="USGrowth">Daily Growth U.S.</option>
+                                <option value="VA">Virginia Total Reported Cases</option>
+                                <option value="VANew">V.A. New Daily Cases</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="dateRangeSlider">
+                            <p id=SliderLable></p>
+                        </div>
+                    </td>
                 </tr>
             </table>
-          
+
         </div>
 
         <!-- SVG chart area -->
         <div id="realChart-area"></div>
-        
+
         <!-- Tool Tip container -->
-        <div id="container"></div> 
+        <div id="container"></div>
 
 
     </div>
 
     <div id='blogDiv'>
+
+        <div class="DailyPost">
+            <h3>04 28 2020</h3>
+            <p class="pNumbers">
+                U.S reported cases: 985,315 +2.3% <br />
+                U.S reported deaths: 56,123 +2.5% <br />
+                Virginia reported cases: 13538 +4.4%<br />
+            </p>
+            <p>A little good news for the U.S. The nation is continuing its decline from the its highpoint on Friday.
+                The U.S. daily growth rate hit 2.3% its lowest to-date. Resulting in 22,379 new cases. The lowest daily
+                amount in 27 days.</p>
+            <p>The daily death growth rate saw a small uptick of .5% resulting in 1,373 new fatalities. Still continuing
+                to trend lower than last week. Now that the daily growth death rate is similar to the new cases growth
+                rate the case fatality rate for the U.S. has remained approximately 5.6% for the last 3 days. </p>
+            <p>for the 3<sup>rd</sup> day in a row Virginia is continuing on a downward growth trend. Resulting in 568
+                new cases. The lowest in 7 days. &nbsp;&nbsp;</p>
+            <hr>
+
+        </div>
 
         <div class="DailyPost">
             <h3>04 27 2020</h3>
@@ -90,9 +113,18 @@
                 04/25/20 12366 +6.7%<br />
                 04/26/20 12970 +4.9%<br />
             </p>
-            <p>This weekend was filled with highs and lows. As expected, the U.S. continued to follow a similar trend as the last 2 weeks. We saw growth on Friday 4.1% resulting in 35,794 new cases the most recorded in one day.&nbsp; Then a decline on Saturday 3.6% with 32,730 new cases on Sunday we saw the lowest daily growth rate of 2.9% with 27,551 new cases. Interestingly, this is the 3<sup>rd</sup> week that showed a wave type pattern of reported cases. With lower numbers at the beginning of the week followed by a slow increase into the weekend.</p>
-            <p>the U.S. daily death growth rate followed similarly with the reported cases. Friday at 3.9% Saturday 3.4% and Sunday at 2%. Sunday saw the lowest new deaths in 20 days with 1,122.</p>
-            <p>Virginia saw its highest new cases to date on Saturday with a growth rate of 6.7% resulting in 772 new cases. Followed by a decline to 4.9% resulting int 604 new cases on Sunday. V.A. is continuing to trend ~10 days behind the nation. I estimate by the end of the week we will see peak new cases for V.A.&nbsp;&nbsp;</p>
+            <p>This weekend was filled with highs and lows. As expected, the U.S. continued to follow a similar trend as
+                the last 2 weeks. We saw growth on Friday 4.1% resulting in 35,794 new cases the most recorded in one
+                day.&nbsp; Then a decline on Saturday 3.6% with 32,730 new cases on Sunday we saw the lowest daily
+                growth rate of 2.9% with 27,551 new cases. Interestingly, this is the 3<sup>rd</sup> week that showed a
+                wave type pattern of reported cases. With lower numbers at the beginning of the week followed by a slow
+                increase into the weekend.</p>
+            <p>the U.S. daily death growth rate followed similarly with the reported cases. Friday at 3.9% Saturday 3.4%
+                and Sunday at 2%. Sunday saw the lowest new deaths in 20 days with 1,122.</p>
+            <p>Virginia saw its highest new cases to date on Saturday with a growth rate of 6.7% resulting in 772 new
+                cases. Followed by a decline to 4.9% resulting int 604 new cases on Sunday. V.A. is continuing to trend
+                ~10 days behind the nation. I estimate by the end of the week we will see peak new cases for
+                V.A.&nbsp;&nbsp;</p>
             <hr>
 
         </div>
@@ -104,15 +136,24 @@
                 U.S reported deaths: 49,852 + 7%<br />
                 Virginia reported cases: 10,998+ 7%<br />
             </p>
-            <p>The U.S. daily growth rate remains at 3.4%. this is the 5<sup>th</sup> day the growth rate has been in the mid 3% range. Resulting in 28,794 new cases. The new cases trend is still following the same growth wave as the last 2 weeks. If this continues, I would expect to see small growth of new cases over the weekend with a decline on Monday. On track to see a 1 million reported cases on Tuesday the 28<sup>th</sup></p>
-            <p>The U.S. daily growth death rate jumped 2% resulting in 3,342 new deaths. This is following a similar trend as last week if this continues, we should see a decline this weekend. I would expect to see close to 60,000 total deaths by Monday.</p>
-            <p>Virginia remained at 7% daily growth for the 3<sup>rd</sup> days.&nbsp; Resulting in 732 new cases. Hopefully we will see the peak in V.A by the end of next week. &nbsp;</p>
+            <p>The U.S. daily growth rate remains at 3.4%. this is the 5<sup>th</sup> day the growth rate has been in
+                the mid 3% range. Resulting in 28,794 new cases. The new cases trend is still following the same growth
+                wave as the last 2 weeks. If this continues, I would expect to see small growth of new cases over the
+                weekend with a decline on Monday. On track to see a 1 million reported cases on Tuesday the
+                28<sup>th</sup></p>
+            <p>The U.S. daily growth death rate jumped 2% resulting in 3,342 new deaths. This is following a similar
+                trend as last week if this continues, we should see a decline this weekend. I would expect to see close
+                to 60,000 total deaths by Monday.</p>
+            <p>Virginia remained at 7% daily growth for the 3<sup>rd</sup> days.&nbsp; Resulting in 732 new cases.
+                Hopefully we will see the peak in V.A by the end of next week. &nbsp;</p>
             <hr>
 
         </div>
 
         <footer>
-            <p>Data provide by <strong>The Center for Systems Science and Engineering (CSSE) at Johns Hopkins University</strong>  <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">JHU Data</a>  </p>
+            <p>Data provide by <strong>The Center for Systems Science and Engineering (CSSE) at Johns Hopkins
+                    University</strong> <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">JHU
+                    Data</a> </p>
         </footer>
     </div>
 
