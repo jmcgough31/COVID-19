@@ -88,7 +88,7 @@ function VACases() {
 
     var margin = { left: 100, right: 10, top: 10, bottom: 100 };
 
-    var width = 1000 - margin.left - margin.right;
+    var width = 1200 - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
 
     var svg = d3.select("#realChart-area")
@@ -257,7 +257,7 @@ function USCases() {
 
     var margin = { left: 100, right: 10, top: 10, bottom: 100 };
 
-    var width = 1000 - margin.left - margin.right;
+    var width = 1200 - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
 
     var svg = d3.select("#realChart-area")
@@ -434,7 +434,7 @@ function USCasesNew() {
 
     var margin = { left: 100, right: 10, top: 10, bottom: 100 };
 
-    var width = 1000 - margin.left - margin.right;
+    var width = 1200 - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
 
     var svg = d3.select("#realChart-area")
@@ -604,7 +604,7 @@ function VACasesNew() {
 
     var margin = { left: 100, right: 10, top: 10, bottom: 100 };
 
-    var width = 1000 - margin.left - margin.right;
+    var width = 1200 - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
 
     var svg = d3.select("#realChart-area")
@@ -777,7 +777,7 @@ function dailyGrowthUS() {
     // set the dimensions and margins of the graph
     var margin = { left: 100, right: 10, top: 10, bottom: 100 };
 
-    var width = 1000 - margin.left - margin.right;
+    var width = 1200 - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
 
 
