@@ -30,7 +30,15 @@ $(document).ready(function () {
         else if (valueofbox == "VANew") {
             $("#realChart-area").empty();
             VACasesNew();
-        }     
+        }   
+        else if (valueofbox == "VADeaths") {
+            $("#realChart-area").empty();
+            VADeaths();
+        }   
+        else if (valueofbox == "USDeaths") {
+            $("#realChart-area").empty();
+            USDeaths();
+        } 
         else {
         }
     });
@@ -43,174 +51,6 @@ var parseTime = d3.timeParse("%m/%d/%Y");
 var toreadDate = d3.timeFormat("%m/%d/%Y");
 var formatPercentage = d3.format(".0%");
 
-function VACases() {
-
-    d3.csv("testCOVID-DataV2.csv").then(function (data) {
-        data.forEach(function (d) {
-            d.DeathsUS = +d.DeathsUS,
-                d.CasesUS = +d.CasesUS,
-                d.CasesVA = +d.CasesVA,
-                d.Date = parseTime(d.Date);
-        });
-
-        dataToSlider(data);
-        totalVACases(data);
-
-    }).catch(function (error) {
-        console.log(error);
-    });
-
-
-    function dataToSlider(data) {
-        var minDate = d3.min(data, function (d) { return d.Date; }).getTime();
-        var maxDate = d3.max(data, function (d) { return d.Date; }).getTime();
-        $("#SliderLable").text(toreadDate(minDate) + " - " + toreadDate(maxDate));
-
-        $("#dateRangeSlider").slider({
-            range: true,
-            min: minDate,
-            max: maxDate,
-            animate: "fast",
-            //step: 86400000, // One day
-            values: [minDate, maxDate],
-            slide: function (event, ui) {
-                $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
-                var sliderValues = $("#dateRangeSlider").slider("values");
-                dataFiltered = data.filter(function (d) {
-                    return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
-                });
-               // console.log(dataFiltered);
-                totalVACases(dataFiltered)
-
-            }
-        })
-    }
-
-    var margin = { left: 100, right: 10, top: 10, bottom: 100 };
-
-    var width = 1200 - margin.left - margin.right;
-    var height = 500 - margin.top - margin.bottom;
-
-    var svg = d3.select("#realChart-area")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-       
-
-    var x = d3.scaleBand()
-        .range([0, width])
-        .paddingInner(0.3)
-        .paddingOuter(0.3);
-
-    var y = d3.scaleLinear()
-        .range([height, 0]);
-
-
-    var g = svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-    g.append("text")
-        .attr("class", "x axis-label")
-        .attr("x", width / 2)
-        .attr("y", height + 70)
-        .attr("font-size", "20px")
-        .attr("text-anchor", "middle")
-        .text("Date");
-
-
-    g.append("text")
-        .attr("class", "y axis-label")
-        .attr("x", -(height / 2))
-        .attr("y", -60)
-        .attr("font-size", "20px")
-        .attr("text-anchor", "middle")
-        .attr("transform", "rotate(-90)")
-        .text("Total Reported Cases Virginia");
-
-    var xAsisGroup = g.append("g")
-        .attr("class", "xaxis")
-        .attr("transform", "translate(0, " + height + ")");
-
-
-    var yAxisGroup = g.append("g")
-        .attr("class", "yaxis");
-
-
-    function totalVACases(data) {
-
-        x.domain(data.map(function (d) { return toreadDate(d.Date); }));
-        y.domain([0, d3.max(data, function (d) { return d.CasesVA; }) + d3.max(data, function (d) { return d.CasesVA;})/50 ]);
-
-        //console.log(data.map(function (d) {return  (d.Date);}));
-
-        // x Axis
-        var xAsisCall = d3.axisBottom(x);
-        xAsisGroup.transition().call(xAsisCall)
-            .selectAll("text")
-            .attr("y", "10")
-            .attr("x", "-5")
-            .attr("text-anchor", "end")
-            .attr("transform", "rotate(-40)");
-
-        //y Axis
-        var yAxisCall = d3.axisLeft(y)
-            .ticks(10)
-            .tickSize(-width)
-        yAxisGroup.transition().call(yAxisCall)
-
-        //Data Join
-        var rects = g.selectAll("rect")
-            .data(data)
-        //Exit remove old elements as needed
-        rects.exit().remove();
-
-        //UPDATE update old elements as needed
-        rects
-            .transition()
-            .attr("y", function (d) { return y(d.CasesVA); })
-            .attr("x", function (d) { return x(toreadDate(d.Date)); })
-            .attr("height", function (d) { return height - y(d.CasesVA); })
-            .attr("width", x.bandwidth)
-
-        //ENTER create new elements as needed
-
-        rects.enter()
-            .append("rect")
-            .attr("y", function (d) { return y(d.CasesVA); })
-            .attr("x", function (d) { return x(toreadDate(d.Date)); })
-            .attr("height", function (d) { return height - y(d.CasesVA); })
-            .attr("width", x.bandwidth)
-            .attr("fill", "#003366")
-            .on('mouseover', mouseover)
-            .on('mousemove', mousemove)
-            .on('mouseout', mouseout);
-
-
-        var div = d3.select('#container').append('div')
-            .attr('class', 'tooltip')
-            .style('display', 'none');
-        function mouseover() {
-
-            div.style('display', 'inline');
-        }
-        function mousemove() {
-            var d = d3.select(this).data()[0]
-            div
-                // .html(d.Date + '<hr/>' + d.CasesUS)
-                .html("Total Cases: " + formatC(d.CasesVA) + '<hr>' + "Daily Growth: " + formatP(d.GrowthVA))
-                .style('left', (d3.event.pageX - 34) + 'px')
-                .style('top', (d3.event.pageY - 12) + 'px');
-        }
-        function mouseout() {
-            div.style('display', 'none');
-        }
-
-
-
-
-    }
-}
 
 function USCases() {
     d3.csv("testCOVID-DataV2.csv").then(function (data) {
@@ -559,6 +399,176 @@ function USCasesNew() {
 
 }
 
+function USDeaths() {
+    d3.csv("testCOVID-DataV2.csv").then(function (data) {
+        data.forEach(function (d) {
+            d.DeathsUS = +d.DeathsUS,
+                d.CasesUS = +d.CasesUS,
+                d.CasesVA = +d.CasesVA,
+                d.DeathsUS = +d.DeathsUS,
+                d.Date = parseTime(d.Date);
+                d.NewUSCases = +d.NewUSCases;
+        });
+
+        dataToSlider(data);
+        totalNewUSCases(data);
+
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+
+    function dataToSlider(data) {
+        var minDate = d3.min(data, function (d) { return d.Date; }).getTime();
+        var maxDate = d3.max(data, function (d) { return d.Date; }).getTime();
+        $("#SliderLable").text(toreadDate(minDate) + " - " + toreadDate(maxDate));
+
+        $("#dateRangeSlider").slider({
+            range: true,
+            min: minDate,
+            max: maxDate,
+            animate: "fast",
+           // step: 86400000, // One day
+            values: [minDate, maxDate],
+            slide: function (event, ui) {
+                $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
+                var sliderValues = $("#dateRangeSlider").slider("values");
+                dataFiltered = data.filter(function (d) {
+                    return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
+                });
+                totalNewUSCases(dataFiltered)
+
+            }
+        })
+    }
+
+    var margin = { left: 100, right: 10, top: 10, bottom: 100 };
+
+    var width = 1200 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("#realChart-area")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+    var x = d3.scaleBand()
+        .range([0, width])        
+        .paddingInner(0.3)
+        .paddingOuter(0.3);
+
+    var y = d3.scaleLinear()
+        .range([height, 0]);
+
+
+    var g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    g.append("text")
+        .attr("class", "x axis-label")
+        .attr("x", width / 2)
+        .attr("y", height + 70)
+        .attr("font-size", "20px")
+        .attr("text-anchor", "middle")
+        .text("Date");
+
+
+    g.append("text")
+        .attr("class", "y axis-label")
+        .attr("x", -(height / 2))
+        .attr("y", -60)
+        .attr("font-size", "20px")
+        .attr("text-anchor", "middle")
+        .attr("transform", "rotate(-90)")
+        .text("Total Reported Deaths U.S.");
+
+    var xAsisGroup = g.append("g")
+        .attr("class", "xaxis")
+        .attr("transform", "translate(0, " + height + ")");
+
+
+    var yAxisGroup = g.append("g")
+        .attr("class", "yaxis");
+
+
+    function  totalNewUSCases(data) {
+
+        x.domain(data.map(function (d) { return toreadDate(d.Date); }));
+        y.domain([0, d3.max(data, function (d) { return d.DeathsUS; }) + d3.max(data, function (d) { return d.DeathsUS; })/50 ]);
+
+        //console.log(data.map(function (d) {return  (d.Date);}));
+
+        // x Axis
+        var xAsisCall = d3.axisBottom(x);
+        xAsisGroup.transition().call(xAsisCall)
+            .selectAll("text")
+           
+            .attr("y", "10")
+            .attr("x", "-5")
+            .attr("text-anchor", "end")
+            .attr("transform", "rotate(-40)");
+
+        //y Axis
+        var yAxisCall = d3.axisLeft(y)
+            .ticks(10)
+            .tickSize(-width)
+        yAxisGroup.transition().call(yAxisCall)
+
+        //Data Join
+        var rects = g.selectAll("rect")
+            .data(data)
+        //Exit remove old elements as needed
+        rects.exit().remove();
+
+        //UPDATE update old elements as needed
+        rects
+            .transition()
+            .attr("y", function (d) { return y(d.DeathsUS); })
+            .attr("x", function (d) { return x(toreadDate(d.Date)); })
+            .attr("height", function (d) { return height - y(d.DeathsUS); })
+            .attr("width", x.bandwidth)
+
+        //ENTER create new elements as needed
+
+        rects.enter()
+            .append("rect")
+            .attr("y", function (d) { return y(d.DeathsUS); })
+            .attr("x", function (d) { return x(toreadDate(d.Date)); })
+            .attr("height", function (d) { return height - y(d.DeathsUS); })
+            .attr("width", x.bandwidth)
+            .attr("fill", "#003366")
+            .on('mouseover', mouseover)
+            .on('mousemove', mousemove)
+            .on('mouseout', mouseout);
+
+
+        var div = d3.select('#container').append('div')
+            .attr('class', 'tooltip')
+            .style('display', 'none');
+        function mouseover() {
+
+            div.style('display', 'inline');
+        }
+        function mousemove() {
+            var d = d3.select(this).data()[0]
+            div
+                // .html(d.Date + '<hr/>' + d.CasesUS)
+                .html("Deaths: " + formatC(d.DeathsUS) )
+                .style('left', (d3.event.pageX - 34) + 'px')
+                .style('top', (d3.event.pageY - 12) + 'px');
+        }
+        function mouseout() {
+            div.style('display', 'none');
+        }
+
+
+
+
+    };
+
+}
+
 function VACasesNew() {
     d3.csv("testCOVID-DataV2.csv").then(function (data) {
         data.forEach(function (d) {
@@ -641,7 +651,7 @@ function VACasesNew() {
         .attr("font-size", "20px")
         .attr("text-anchor", "middle")
         .attr("transform", "rotate(-90)")
-        .text("Dail New Cases V.A.");
+        .text("Daily New Cases V.A.");
 
     var xAsisGroup = g.append("g")
         .attr("class", "xaxis")
@@ -728,10 +738,343 @@ function VACasesNew() {
 
 }
 
+function VACases() {
 
+    d3.csv("testCOVID-DataV2.csv").then(function (data) {
+        data.forEach(function (d) {
+            d.DeathsUS = +d.DeathsUS,
+                d.CasesUS = +d.CasesUS,
+                d.CasesVA = +d.CasesVA,
+                d.Date = parseTime(d.Date);
+        });
+
+        dataToSlider(data);
+        totalVACases(data);
+
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+
+    function dataToSlider(data) {
+        var minDate = d3.min(data, function (d) { return d.Date; }).getTime();
+        var maxDate = d3.max(data, function (d) { return d.Date; }).getTime();
+        $("#SliderLable").text(toreadDate(minDate) + " - " + toreadDate(maxDate));
+
+        $("#dateRangeSlider").slider({
+            range: true,
+            min: minDate,
+            max: maxDate,
+            animate: "fast",
+            //step: 86400000, // One day
+            values: [minDate, maxDate],
+            slide: function (event, ui) {
+                $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
+                var sliderValues = $("#dateRangeSlider").slider("values");
+                dataFiltered = data.filter(function (d) {
+                    return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
+                });
+               // console.log(dataFiltered);
+                totalVACases(dataFiltered)
+
+            }
+        })
+    }
+
+    var margin = { left: 100, right: 10, top: 10, bottom: 100 };
+
+    var width = 1200 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("#realChart-area")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+       
+
+    var x = d3.scaleBand()
+        .range([0, width])
+        .paddingInner(0.3)
+        .paddingOuter(0.3);
+
+    var y = d3.scaleLinear()
+        .range([height, 0]);
+
+
+    var g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    g.append("text")
+        .attr("class", "x axis-label")
+        .attr("x", width / 2)
+        .attr("y", height + 70)
+        .attr("font-size", "20px")
+        .attr("text-anchor", "middle")
+        .text("Date");
+
+
+    g.append("text")
+        .attr("class", "y axis-label")
+        .attr("x", -(height / 2))
+        .attr("y", -60)
+        .attr("font-size", "20px")
+        .attr("text-anchor", "middle")
+        .attr("transform", "rotate(-90)")
+        .text("Total Reported Cases Virginia");
+
+    var xAsisGroup = g.append("g")
+        .attr("class", "xaxis")
+        .attr("transform", "translate(0, " + height + ")");
+
+
+    var yAxisGroup = g.append("g")
+        .attr("class", "yaxis");
+
+
+    function totalVACases(data) {
+
+        x.domain(data.map(function (d) { return toreadDate(d.Date); }));
+        y.domain([0, d3.max(data, function (d) { return d.CasesVA; }) + d3.max(data, function (d) { return d.CasesVA;})/50 ]);
+
+        //console.log(data.map(function (d) {return  (d.Date);}));
+
+        // x Axis
+        var xAsisCall = d3.axisBottom(x);
+        xAsisGroup.transition().call(xAsisCall)
+            .selectAll("text")
+            .attr("y", "10")
+            .attr("x", "-5")
+            .attr("text-anchor", "end")
+            .attr("transform", "rotate(-40)");
+
+        //y Axis
+        var yAxisCall = d3.axisLeft(y)
+            .ticks(10)
+            .tickSize(-width)
+        yAxisGroup.transition().call(yAxisCall)
+
+        //Data Join
+        var rects = g.selectAll("rect")
+            .data(data)
+        //Exit remove old elements as needed
+        rects.exit().remove();
+
+        //UPDATE update old elements as needed
+        rects
+            .transition()
+            .attr("y", function (d) { return y(d.CasesVA); })
+            .attr("x", function (d) { return x(toreadDate(d.Date)); })
+            .attr("height", function (d) { return height - y(d.CasesVA); })
+            .attr("width", x.bandwidth)
+
+        //ENTER create new elements as needed
+
+        rects.enter()
+            .append("rect")
+            .attr("y", function (d) { return y(d.CasesVA); })
+            .attr("x", function (d) { return x(toreadDate(d.Date)); })
+            .attr("height", function (d) { return height - y(d.CasesVA); })
+            .attr("width", x.bandwidth)
+            .attr("fill", "#003366")
+            .on('mouseover', mouseover)
+            .on('mousemove', mousemove)
+            .on('mouseout', mouseout);
+
+
+        var div = d3.select('#container').append('div')
+            .attr('class', 'tooltip')
+            .style('display', 'none');
+        function mouseover() {
+
+            div.style('display', 'inline');
+        }
+        function mousemove() {
+            var d = d3.select(this).data()[0]
+            div
+                // .html(d.Date + '<hr/>' + d.CasesUS)
+                .html("Total Cases: " + formatC(d.CasesVA) + '<hr>' + "Daily Growth: " + formatP(d.GrowthVA))
+                .style('left', (d3.event.pageX - 34) + 'px')
+                .style('top', (d3.event.pageY - 12) + 'px');
+        }
+        function mouseout() {
+            div.style('display', 'none');
+        }
+
+
+
+
+    }
+}
+
+function VADeaths() {
+
+    d3.csv("testCOVID-DataV2.csv").then(function (data) {
+        data.forEach(function (d) {
+            d.DeathsUS = +d.DeathsUS,
+                d.CasesUS = +d.CasesUS,
+                d.CasesVA = +d.CasesVA,
+                d.DeathsVA =+d.DeathsVA,
+                d.Date = parseTime(d.Date);
+        });
+
+        dataToSlider(data);
+        totalVACases(data);
+
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+
+    function dataToSlider(data) {
+        var minDate = d3.min(data, function (d) { return d.Date; }).getTime();
+        var maxDate = d3.max(data, function (d) { return d.Date; }).getTime();
+        $("#SliderLable").text(toreadDate(minDate) + " - " + toreadDate(maxDate));
+
+        $("#dateRangeSlider").slider({
+            range: true,
+            min: minDate,
+            max: maxDate,
+            animate: "fast",
+            //step: 86400000, // One day
+            values: [minDate, maxDate],
+            slide: function (event, ui) {
+                $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
+                var sliderValues = $("#dateRangeSlider").slider("values");
+                dataFiltered = data.filter(function (d) {
+                    return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
+                });
+               // console.log(dataFiltered);
+                totalVACases(dataFiltered)
+
+            }
+        })
+    }
+
+    var margin = { left: 100, right: 10, top: 10, bottom: 100 };
+
+    var width = 1200 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("#realChart-area")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+       
+
+    var x = d3.scaleBand()
+        .range([0, width])
+        .paddingInner(0.3)
+        .paddingOuter(0.3);
+
+    var y = d3.scaleLinear()
+        .range([height, 0]);
+
+
+    var g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    g.append("text")
+        .attr("class", "x axis-label")
+        .attr("x", width / 2)
+        .attr("y", height + 70)
+        .attr("font-size", "20px")
+        .attr("text-anchor", "middle")
+        .text("Date");
+
+
+    g.append("text")
+        .attr("class", "y axis-label")
+        .attr("x", -(height / 2))
+        .attr("y", -60)
+        .attr("font-size", "20px")
+        .attr("text-anchor", "middle")
+        .attr("transform", "rotate(-90)")
+        .text("Total Reported Deaths Virginia");
+
+    var xAsisGroup = g.append("g")
+        .attr("class", "xaxis")
+        .attr("transform", "translate(0, " + height + ")");
+
+
+    var yAxisGroup = g.append("g")
+        .attr("class", "yaxis");
+
+
+    function totalVACases(data) {
+
+        x.domain(data.map(function (d) { return toreadDate(d.Date); }));
+        y.domain([0, d3.max(data, function (d) { return d.DeathsVA; }) + d3.max(data, function (d) { return d.DeathsVA;})/50 ]);
+
+        //console.log(data.map(function (d) {return  (d.Date);}));
+
+        // x Axis
+        var xAsisCall = d3.axisBottom(x);
+        xAsisGroup.transition().call(xAsisCall)
+            .selectAll("text")
+            .attr("y", "10")
+            .attr("x", "-5")
+            .attr("text-anchor", "end")
+            .attr("transform", "rotate(-40)");
+
+        //y Axis
+        var yAxisCall = d3.axisLeft(y)
+            .ticks(10)
+            .tickSize(-width)
+        yAxisGroup.transition().call(yAxisCall)
+
+        //Data Join
+        var rects = g.selectAll("rect")
+            .data(data)
+        //Exit remove old elements as needed
+        rects.exit().remove();
+
+        //UPDATE update old elements as needed
+        rects
+            .transition()
+            .attr("y", function (d) { return y(d.DeathsVA); })
+            .attr("x", function (d) { return x(toreadDate(d.Date)); })
+            .attr("height", function (d) { return height - y(d.DeathsVA); })
+            .attr("width", x.bandwidth)
+
+        //ENTER create new elements as needed
+
+        rects.enter()
+            .append("rect")
+            .attr("y", function (d) { return y(d.DeathsVA); })
+            .attr("x", function (d) { return x(toreadDate(d.Date)); })
+            .attr("height", function (d) { return height - y(d.DeathsVA); })
+            .attr("width", x.bandwidth)
+            .attr("fill", "#003366")
+            .on('mouseover', mouseover)
+            .on('mousemove', mousemove)
+            .on('mouseout', mouseout);
+
+
+        var div = d3.select('#container').append('div')
+            .attr('class', 'tooltip')
+            .style('display', 'none');
+        function mouseover() {
+
+            div.style('display', 'inline');
+        }
+        function mousemove() {
+            var d = d3.select(this).data()[0]
+            div
+                // .html(d.Date + '<hr/>' + d.CasesUS)
+                .html("Total Deaths: " + formatC(d.DeathsVA))
+                .style('left', (d3.event.pageX - 34) + 'px')
+                .style('top', (d3.event.pageY - 12) + 'px');
+        }
+        function mouseout() {
+            div.style('display', 'none');
+        }
+
+    }
+}
 
 ///------- line charts -------////
-
 
 function dailyGrowthUS() {
 
@@ -888,6 +1231,6 @@ function dailyGrowthUS() {
     }
 
 
-};
+}
 
 
