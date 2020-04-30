@@ -22,23 +22,23 @@ $(document).ready(function () {
             $("#realChart-area").empty();
             dailyGrowthUS();
 
-        }  
+        }
         else if (valueofbox == "USNew") {
             $("#realChart-area").empty();
             USCasesNew();
-        }      
+        }
         else if (valueofbox == "VANew") {
             $("#realChart-area").empty();
             VACasesNew();
-        }   
+        }
         else if (valueofbox == "VADeaths") {
             $("#realChart-area").empty();
             VADeaths();
-        }   
+        }
         else if (valueofbox == "USDeaths") {
             $("#realChart-area").empty();
             USDeaths();
-        } 
+        }
         else {
         }
     });
@@ -79,7 +79,7 @@ function USCases() {
             range: true,
             min: minDate,
             max: maxDate,
-            animate: "fast",          
+            animate: "fast",
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -88,7 +88,7 @@ function USCases() {
                     return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
                 });
                 count = dataFiltered.length;
-                
+
                 totalUSCases(dataFiltered, count);
 
             }
@@ -108,7 +108,7 @@ function USCases() {
     var x = d3.scaleBand()
         .range([0, width])
         .paddingInner(0.3)
-        .paddingOuter(0.3);    
+        .paddingOuter(0.3);
 
     var y = d3.scaleLinear()
         .range([height, 0]);
@@ -138,7 +138,7 @@ function USCases() {
 
     var xAsisGroup = g.append("g")
         .attr("class", "xaxis")
-        .attr("transform", "translate(0, " + height + ")")    
+        .attr("transform", "translate(0, " + height + ")")
 
 
     var yAxisGroup = g.append("g")
@@ -148,7 +148,7 @@ function USCases() {
     function totalUSCases(data, count) {
         console.log(count);
         x.domain(data.map(function (d) { return toreadDate(d.Date); }));
-        y.domain([0, d3.max(data, function (d) { return d.CasesUS; }) + (d3.max(data, function (d) { return d.CasesUS; })/50) ]);
+        y.domain([0, d3.max(data, function (d) { return d.CasesUS; }) + (d3.max(data, function (d) { return d.CasesUS; }) / 50)]);
 
         //console.log(data.map(function (d) {return  (d.Date);}));
 
@@ -157,18 +157,18 @@ function USCases() {
         xAsisGroup.transition().call(xAsisCall)
             .selectAll("text")
             .attr("y", "10")
-            .attr("x", "-5")           
+            .attr("x", "-5")
             .attr("text-anchor", "end")
-            .attr("transform", "rotate(-40)") 
-            // .style("fill", function(){
-            //     if(count > 40){
-            //         return "none"
-            //     }
-            //     else{
-            //         return "black"
-            //     }
-            // } );
-          
+            .attr("transform", "rotate(-40)")
+        // .style("fill", function(){
+        //     if(count > 40){
+        //         return "none"
+        //     }
+        //     else{
+        //         return "black"
+        //     }
+        // } );
+
 
         //y Axis
         var yAxisCall = d3.axisLeft(y)
@@ -237,7 +237,7 @@ function USCasesNew() {
                 d.CasesUS = +d.CasesUS,
                 d.CasesVA = +d.CasesVA,
                 d.Date = parseTime(d.Date);
-                d.NewUSCases = +d.NewUSCases;
+            d.NewUSCases = +d.NewUSCases;
         });
 
         dataToSlider(data);
@@ -258,7 +258,7 @@ function USCasesNew() {
             min: minDate,
             max: maxDate,
             animate: "fast",
-           // step: 86400000, // One day
+            // step: 86400000, // One day
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -283,7 +283,7 @@ function USCasesNew() {
         .attr("height", height + margin.top + margin.bottom);
 
     var x = d3.scaleBand()
-        .range([0, width])        
+        .range([0, width])
         .paddingInner(0.3)
         .paddingOuter(0.3);
 
@@ -322,10 +322,10 @@ function USCasesNew() {
         .attr("class", "yaxis");
 
 
-    function  totalNewUSCases(data) {
+    function totalNewUSCases(data) {
 
         x.domain(data.map(function (d) { return toreadDate(d.Date); }));
-        y.domain([0, d3.max(data, function (d) { return d.NewUSCases; }) + d3.max(data, function (d) { return d.NewUSCases; })/50 ]);
+        y.domain([0, d3.max(data, function (d) { return d.NewUSCases; }) + d3.max(data, function (d) { return d.NewUSCases; }) / 50]);
 
         //console.log(data.map(function (d) {return  (d.Date);}));
 
@@ -333,7 +333,7 @@ function USCasesNew() {
         var xAsisCall = d3.axisBottom(x);
         xAsisGroup.transition().call(xAsisCall)
             .selectAll("text")
-           
+
             .attr("y", "10")
             .attr("x", "-5")
             .attr("text-anchor", "end")
@@ -407,7 +407,7 @@ function USDeaths() {
                 d.CasesVA = +d.CasesVA,
                 d.DeathsUS = +d.DeathsUS,
                 d.Date = parseTime(d.Date);
-                d.NewUSCases = +d.NewUSCases;
+            d.NewUSCases = +d.NewUSCases;
         });
 
         dataToSlider(data);
@@ -428,7 +428,7 @@ function USDeaths() {
             min: minDate,
             max: maxDate,
             animate: "fast",
-           // step: 86400000, // One day
+            // step: 86400000, // One day
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -453,7 +453,7 @@ function USDeaths() {
         .attr("height", height + margin.top + margin.bottom);
 
     var x = d3.scaleBand()
-        .range([0, width])        
+        .range([0, width])
         .paddingInner(0.3)
         .paddingOuter(0.3);
 
@@ -492,10 +492,10 @@ function USDeaths() {
         .attr("class", "yaxis");
 
 
-    function  totalNewUSCases(data) {
+    function totalNewUSCases(data) {
 
         x.domain(data.map(function (d) { return toreadDate(d.Date); }));
-        y.domain([0, d3.max(data, function (d) { return d.DeathsUS; }) + d3.max(data, function (d) { return d.DeathsUS; })/50 ]);
+        y.domain([0, d3.max(data, function (d) { return d.DeathsUS; }) + d3.max(data, function (d) { return d.DeathsUS; }) / 50]);
 
         //console.log(data.map(function (d) {return  (d.Date);}));
 
@@ -503,7 +503,7 @@ function USDeaths() {
         var xAsisCall = d3.axisBottom(x);
         xAsisGroup.transition().call(xAsisCall)
             .selectAll("text")
-           
+
             .attr("y", "10")
             .attr("x", "-5")
             .attr("text-anchor", "end")
@@ -554,7 +554,7 @@ function USDeaths() {
             var d = d3.select(this).data()[0]
             div
                 // .html(d.Date + '<hr/>' + d.CasesUS)
-                .html("Deaths: " + formatC(d.DeathsUS) )
+                .html("Deaths: " + formatC(d.DeathsUS))
                 .style('left', (d3.event.pageX - 34) + 'px')
                 .style('top', (d3.event.pageY - 12) + 'px');
         }
@@ -576,8 +576,8 @@ function VACasesNew() {
                 d.CasesUS = +d.CasesUS,
                 d.CasesVA = +d.CasesVA,
                 d.Date = parseTime(d.Date);
-                d.NewUSCases = +d.NewUSCases;
-                d.NewVACases = +d.NewVACases;
+            d.NewUSCases = +d.NewUSCases;
+            d.NewVACases = +d.NewVACases;
         });
 
         dataToSlider(data);
@@ -598,7 +598,7 @@ function VACasesNew() {
             min: minDate,
             max: maxDate,
             animate: "fast",
-          //  step: 86400000, // One day
+            //  step: 86400000, // One day
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -662,10 +662,10 @@ function VACasesNew() {
         .attr("class", "yaxis");
 
 
-    function  totalNewVACases(data) {
+    function totalNewVACases(data) {
 
         x.domain(data.map(function (d) { return toreadDate(d.Date); }));
-        y.domain([0, d3.max(data, function (d) { return d.NewVACases; }) + (d3.max(data, function (d) { return d.NewVACases; })/50) ]);
+        y.domain([0, d3.max(data, function (d) { return d.NewVACases; }) + (d3.max(data, function (d) { return d.NewVACases; }) / 50)]);
 
         //console.log(data.map(function (d) {return  (d.Date);}));
 
@@ -774,7 +774,7 @@ function VACases() {
                 dataFiltered = data.filter(function (d) {
                     return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
                 });
-               // console.log(dataFiltered);
+                // console.log(dataFiltered);
                 totalVACases(dataFiltered)
 
             }
@@ -790,7 +790,7 @@ function VACases() {
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-       
+
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -835,7 +835,7 @@ function VACases() {
     function totalVACases(data) {
 
         x.domain(data.map(function (d) { return toreadDate(d.Date); }));
-        y.domain([0, d3.max(data, function (d) { return d.CasesVA; }) + d3.max(data, function (d) { return d.CasesVA;})/50 ]);
+        y.domain([0, d3.max(data, function (d) { return d.CasesVA; }) + d3.max(data, function (d) { return d.CasesVA; }) / 50]);
 
         //console.log(data.map(function (d) {return  (d.Date);}));
 
@@ -914,7 +914,7 @@ function VADeaths() {
             d.DeathsUS = +d.DeathsUS,
                 d.CasesUS = +d.CasesUS,
                 d.CasesVA = +d.CasesVA,
-                d.DeathsVA =+d.DeathsVA,
+                d.DeathsVA = +d.DeathsVA,
                 d.Date = parseTime(d.Date);
         });
 
@@ -944,7 +944,7 @@ function VADeaths() {
                 dataFiltered = data.filter(function (d) {
                     return ((d.Date >= sliderValues[0]) && (d.Date <= sliderValues[1]))
                 });
-               // console.log(dataFiltered);
+                // console.log(dataFiltered);
                 totalVACases(dataFiltered)
 
             }
@@ -960,7 +960,7 @@ function VADeaths() {
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-       
+
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -1005,7 +1005,7 @@ function VADeaths() {
     function totalVACases(data) {
 
         x.domain(data.map(function (d) { return toreadDate(d.Date); }));
-        y.domain([0, d3.max(data, function (d) { return d.DeathsVA; }) + d3.max(data, function (d) { return d.DeathsVA;})/50 ]);
+        y.domain([0, d3.max(data, function (d) { return d.DeathsVA; }) + d3.max(data, function (d) { return d.DeathsVA; }) / 50]);
 
         //console.log(data.map(function (d) {return  (d.Date);}));
 
@@ -1083,7 +1083,7 @@ function dailyGrowthUS() {
             d.Date = parseTime(d.Date);
             d.GrowthUS = +d.GrowthUS;
         });
-        
+
 
         totalDailyGrowth(data);
         dataToSlider(data);
@@ -1102,7 +1102,7 @@ function dailyGrowthUS() {
             min: minDate,
             max: maxDate,
             animate: "fast",
-          //  step: 86400000, // One day
+            //  step: 86400000, // One day
             values: [minDate, maxDate],
             slide: function (event, ui) {
                 $("#SliderLable").text(toreadDate(new Date(ui.values[0])) + " - " + toreadDate(new Date(ui.values[1])));
@@ -1169,12 +1169,12 @@ function dailyGrowthUS() {
     // Add the x Axis
     var xAsisGroup = svg.append("g")
         .attr("transform", "translate(0," + height + ")");
-        
-      //  .call(d3.axisBottom(x)
-           
+
+    //  .call(d3.axisBottom(x)
+
 
     // Add the y Axis
-    var yAxisGroup =  svg.append("g")         
+    var yAxisGroup = svg.append("g")
 
 
     function totalDailyGrowth(data) {
@@ -1182,51 +1182,51 @@ function dailyGrowthUS() {
         x.domain(d3.extent(data, function (d) { return d.Date; }));
         y.domain([0, d3.max(data, function (d) { return d.GrowthUS; })]);
 
-        var xAsisCall = d3.axisBottom(x)      
-        .tickFormat(toreadDate);
-      
+        var xAsisCall = d3.axisBottom(x)
+            .tickFormat(toreadDate);
+
 
         xAsisGroup.transition().call(xAsisCall)
-        .selectAll("text")
-        .attr("text-anchor", "end")
-        .attr("transform", "rotate(-40)") ;
-       // .tickFormat(d3.timeFormat("%Y-%m-%d"));
+            .selectAll("text")
+            .attr("text-anchor", "end")
+            .attr("transform", "rotate(-40)");
+        // .tickFormat(d3.timeFormat("%Y-%m-%d"));
 
         var yAxisCall = d3.axisLeft(y).ticks(null, "%");
         // .ticks(10)
         // .tickSize(-width);
-         yAxisGroup.transition().call(yAxisCall);
+        yAxisGroup.transition().call(yAxisCall);
 
         // Add the valueline path.
 
-     var path = svg.append("path")     
-        .attr("class", "line")
-        .attr("d", valueline(data))        
-        .attr("fill", "none")
-        .attr("stroke", "#003366");
+        var path = svg.append("path")
+            .attr("class", "line")
+            .attr("d", valueline(data))
+            .attr("fill", "none")
+            .attr("stroke", "#003366");
 
 
     }
 
-    function lineUpdate(data){
+    function lineUpdate(data) {
         x.domain(d3.extent(data, function (d) { return d.Date; }));
         y.domain([0, d3.max(data, function (d) { return d.GrowthUS; })]);
 
         var svg = d3.select("body").transition();
 
         svg.select(".line")
-            .attr("d",valueline(data))
+            .attr("d", valueline(data))
 
-            var xAsisCall = d3.axisBottom(x)      
-            .tickFormat(toreadDate);          
-    
-            xAsisGroup.transition().call(xAsisCall)
+        var xAsisCall = d3.axisBottom(x)
+            .tickFormat(toreadDate);
+
+        xAsisGroup.transition().call(xAsisCall)
             .selectAll("text")
             .attr("text-anchor", "end")
-            .attr("transform", "rotate(-40)");          
-    
-            var yAxisCall = d3.axisLeft(y).ticks(null, "%");          
-             yAxisGroup.transition().call(yAxisCall);
+            .attr("transform", "rotate(-40)");
+
+        var yAxisCall = d3.axisLeft(y).ticks(null, "%");
+        yAxisGroup.transition().call(yAxisCall);
 
     }
 
