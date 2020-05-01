@@ -155,19 +155,23 @@ footer{
      margin: 5px;
  }
 
-  /* test CSS */
+ #dataCitation{     
+  position: relative;
+  top: -30px;
+  text-align: left;
+  font-size: 10px;
+}
 
-  #chart-area svg {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
+#dataCitationP{
+  margin: 0;
+  padding-top: 0px;
+}
   
-  #logo {
+  /* #logo {
     height:50px;
-  }
+  } */
   
-  .navbar-brand {
+  /* .navbar-brand {
     height: 60px;
     padding: 5px 0px;
   }
@@ -182,9 +186,9 @@ footer{
     stroke: #D4D8DA;
     stroke-width: 2px;
     shape-rendering: crispEdges;
-  }
+  } */
   
-  .line {
+  /* .line {
     fill: none;
     stroke-width: 2px;
   }
@@ -205,20 +209,9 @@ footer{
     stroke-width: 2px;
     stroke-dasharray: 3,3;
   }
-  
-  #selections .col-md-4 {
+   */
+  /* #selections .col-md-4 {
     padding-top: 10px;
     padding-bottom: 10px;
-  }
+  } */
 
-  #dataCitation{     
-    position: relative;
-    top: -30px;
-    text-align: left;
-    font-size: 10px;
-  }
-
-  #dataCitationP{
-    margin: 0;
-    padding-top: 0px;
-  }
